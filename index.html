@@ -56,9 +56,19 @@
 //сделать генерацию кактусов в 1х 2х лниях и птеродактилей в 2х верхних линиях
     function generateEnemy() {
       setInterval(() => {
-        const type = Math.random() > 0.5 ? 'cactus' : 'pterodactyl';
-        const laneIndex = Math.floor(Math.random() * 3);
-        const enemy = document.createElement('div');
+        let mr = Math.random()
+        let type = Math.random() > 0.5 ? 'cactus' : 'pterodactyl';
+        if (mr == 1 ){ 
+          mr = mr - 0.1
+        }
+        if(mr <= 0.4 && type == 'cactus' ){
+          mr = mr + 0.3
+        }
+        if(mr >= 0.7 && type == 'pterodactyl' ){
+          mr = mr - 0.4
+        }
+        let laneIndex = Math.floor(mr * 3);
+        let enemy = document.createElement('div');
         enemy.classList.add('enemy');
         enemy.style.top = `${lanes[laneIndex] * 100}%`;
         enemy.style.transform = 'translateY(-50%)';
@@ -67,7 +77,7 @@
         enemy.style.backgroundImage = `url('${type}1.png')`;
         game.appendChild(enemy);
         enemies.push(enemy);
-
+        
         // Animation frames
         let frame = 1;
         const frameInterval = setInterval(() => {
